@@ -2,10 +2,7 @@ import socket
 import threading
 import select
 
-
-
 SOCKS_VERSION = 5
-
 
 class Proxy:
     def __init__(self):
@@ -14,7 +11,7 @@ class Proxy:
 
     def handle_client(self, connection):
         # greeting header
-        # read and unpack 2 bytes from a client
+        # (read and unpack 2 bytes from a client)
         version, nmethods = connection.recv(2)
 
         # get available methods [0, 1, 2]
