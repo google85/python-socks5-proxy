@@ -1,7 +1,7 @@
-all: run
+all: start
 
-build:
-	docker build -t python_socks_proxy .
+start:
+	docker compose up -d --build
 
-run: build
-	docker run -p 8888:8888 python_socks_proxy
+stop:
+	docker compose down

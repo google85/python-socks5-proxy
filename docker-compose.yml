@@ -1,0 +1,10 @@
+name: python-socks-proxy
+
+services:
+  proxy:
+    build: .
+    image: google85/python_socks_proxy
+    container_name: proxy
+    # environment:
+    ports:
+      - "0.0.0.0:8888:8888"
