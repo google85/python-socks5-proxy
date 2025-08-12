@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+import os
+
 import socket
 import threading
 import select
@@ -6,8 +9,10 @@ SOCKS_VERSION = 5
 
 class Proxy:
     def __init__(self):
-        self.username = "username"
-        self.password = "password"
+        self.username   = os.getenv("PROXY_USERNAME")
+        self.password   = os.getenv("PROXY_PASSWORD")
+        self.proxy_host = os.getenv("PROXY_HOST")
+        self.proxy_port = int(os.getenv("PROXY_PORT"))
 
     def handle_client(self, connection):
         # greeting header
@@ -130,12 +135,12 @@ class Proxy:
             methods.append(ord(connection.recv(1)))
         return methods
 
-    def run(self, host, port):
+    def run(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((host, port))
+        s.bind((self.proxy_host, self.proxy_port))
         s.listen()
 
-        print("* Socks5 proxy server is running on {}:{}".format(host, port))
+        print("* Socks5 proxy server is running on {}:{}".format(self.proxy_host, self.proxy_port))
 
         while True:
             conn, addr = s.accept()
@@ -146,4 +151,4 @@ class Proxy:
 
 if __name__ == "__main__":
     proxy = Proxy()
-    proxy.run("127.0.0.1", 3000)
+    proxy.run()
