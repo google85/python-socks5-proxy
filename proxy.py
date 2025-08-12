@@ -140,7 +140,7 @@ class Proxy:
         s.bind((self.proxy_host, self.proxy_port))
         s.listen()
 
-        print("* Socks5 proxy server is running on {}:{}".format(self.proxy_host, self.proxy_port))
+        print("* Socks5 proxy server is running on {}:{}".format(self.proxy_host, self.proxy_port), flush=True)
 
         while True:
             conn, addr = s.accept()
